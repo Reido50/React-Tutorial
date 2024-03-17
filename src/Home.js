@@ -1,26 +1,26 @@
+import BlogList from "./BlogList.js";
+
+import { useEffect, useState } from "react";
+
 const Home = () => {
-    const title = 'welcome to the new blog';
-    const likes = 50;
-    const link = 'http://www.google.com';
+    const [blogs, setBlogs] = useState([
+        {title: 'review 1', body: 'the game is good', author: 'reid', id: 1},
+        {title: 'review 2', body: 'the game is mid', author: 'reid', id: 2},
+        {title: 'review 3', body: 'the game is bad', author: 'reid', id: 3}
+    ]);
 
-    const handleClick = (e) => {
-        console.log("hello!", e);
+    const handleDelete = (id) => {
+        const newBlogs = blogs.filter((blog) => {return blog.id !== id;});
+        setBlogs(newBlogs);
     }
 
-    const handleClickParam = (e, name) => {
-        console.log(`hello ${name}`, e);
-    }
+    useEffect(() => {
+        console.log("use effect ran");
+    }, []);
 
     return (
         <div className="home">
-            <h2>{ title }</h2>
-            <p>Likes: { likes }</p>
-            <p> { 10 + 20 } </p>\
-            <p> { [1, 4, 10] } </p>
-            <p> {Math.random() * 10} </p>
-            <p><a href={ link } target='_blank'>Link to site</a></p>
-            <button onClick={handleClick}>click me!</button>
-            <button onClick={(e) => handleClickParam(e, "reid")}>click me instead!</button>
+            <BlogList blogs = {blogs} title = "all blogs" handleDelete={handleDelete}/>
         </div>
      );
 }
